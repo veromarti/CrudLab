@@ -9,14 +9,6 @@ const userInfo = {
     courses: 0
 };
 
-
-
-// const name = prompt("Enter your name", "Here goes your name");
-// let age = Number(prompt("Enter your age", "Here goes your age"));
-// const mail = prompt("Enter your e-mail", "Here goes your e-mail");
-// let stat = false;
-// showConsole();
-
 function menu(){
     const option = intValidation(`Choose an option \n1. User Registration \n2. Show user info \n3. Simulation \n4. Exit`,1,4);
     return option
@@ -76,7 +68,6 @@ function strValidation(message){
     }
 }
 
-
 function register() {
     let userName = strValidation("Enter your name");
     let userAge = intValidation("Enter your age", 5);
@@ -84,32 +75,39 @@ function register() {
     return [userName,userAge,userCourses]
 }
 
-
-// function ageValidation(value){
-//     console.log(value);
-//     if (!(Number.isInteger(value))) {
-//         console.log('Number not valid');
-//     }
-//     else{
-//         // if (value > 17) {
-//         //     continue;
-//         // } else {
-//         //     continue;
-//         // }
-//     }
-// }
-
 function showUser(user){
-    console.log(`Name: ${user.name} \nAge: ${user.age} \nCourser: ${user.courses}`);
+    console.log(`Name: ${user.name} \nAge: ${user.age} \nCourses: ${user.courses}`);
     let msg = 'You are older than 18';
 
     if (user.age < 19) {
         msg = 'You are under age';
     }
 
-    alert(``"Welcome to the CRUDLab System");
+    alert(`Name: ${user.name} \nAge: ${user.age} \n${msg} \nCourses: ${user.courses}`);
+    return
 }
 
+function evaluation() {
+    let sumNotes = 0, prom = 0, notes = [];
+    notes[0]  = intValidation("Enter note 1", 0,5);
+    notes[1]  = intValidation("Enter note 2", 0,5);
+    notes[2]  = intValidation("Enter note 3", 0,5);
+    let msg = 'Congratulations, you approbed';
+
+    for(let i of notes) sumNotes += i;
+    prom = sumNotes/3;
+    prom = prom.toFixed(2);
+
+    if (prom < 3) {
+        msg = "Unfortunately you failed"
+    } else if (prom > 4.5){
+        msg = 'Congratulations, you approbed with excellence';
+    }
+
+    alert(`Your final note is: ${prom} \n${msg}`);
+    return
+    
+}
 
 function main(value){
     switch (value) {
@@ -123,21 +121,14 @@ function main(value){
         case 2:
             showUser(userInfo);
             break;
-
         case 3:
-            
-            break;
-            
-        case 4:
-            
+            evaluation();
             break;
     
         default:
             break;
     }
 }
-
-// main();
 
 while (!flagMenu) {
     let option = menu();
@@ -150,7 +141,4 @@ while (!flagMenu) {
         flagMenu = false;
         main(option);
     }
-
-    
-    
 }
